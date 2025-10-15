@@ -2,6 +2,8 @@ package pl.zabrze.zs10.listy4p_grtylkosroda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -45,10 +48,28 @@ Button buttonDodaj;
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                       /* produktuy.remove(i);
-                        adapter.notifyDataSetChanged();*/
+                       /* */
                         //przekreślanie
 
+                        TextView textView = (TextView) view;
+                        if(textView.getPaintFlags() == Paint.STRIKE_THRU_TEXT_FLAG){
+                            textView.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
+                            view.setBackgroundColor(Color.WHITE);
+                        }
+                        else {
+                            textView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                            view.setBackgroundColor(Color.RED);
+                        }
+                    }
+                }
+        );
+        listView.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        produktuy.remove(i);
+                        adapter.notifyDataSetChanged();
+                        return false;
                     }
                 }
         );
